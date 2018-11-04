@@ -1,0 +1,48 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+
+group = 'log-parser'
+version = '1.0-SNAPSHOT'
+
+description = "Access log parser"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def mainClassName = "com.ef.Parser"
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version:'2.1.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'2.1.0.RELEASE'
+    compile group: 'org.projectlombok', name: 'lombok', version:'1.16.22'
+    compile group: 'com.google.guava', name: 'guava', version:'23.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.8.1'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'8.0.13'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.1.0.RELEASE'
+}
