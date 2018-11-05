@@ -13,7 +13,6 @@ import java.util.List;
 import static com.ef.utils.DateUtils.parseDate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {FileLogFetcher.class, PipeDelimitedStringLogMapper.class})

@@ -14,6 +14,7 @@ import java.util.UUID;
 @Builder
 @Entity
 public class Log {
+    //uuid is used to enable batch inserts for logs
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;

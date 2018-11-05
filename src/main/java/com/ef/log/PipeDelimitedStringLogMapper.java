@@ -24,7 +24,11 @@ public class PipeDelimitedStringLogMapper implements LogMapper<String> {
 
         Optional.of(lineItems)
                 .filter(x -> x.length == 5)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(
+                        () -> new IllegalArgumentException(
+                                "Line should represent 5 fields delimited by '|'," +
+                                        "but there are only " + lineItems.length + " fields in: \n" + line)
+                );
 
         return Log.builder()
                 .dateTime(parseDate(lineItems[0]))
@@ -46,7 +50,7 @@ public class PipeDelimitedStringLogMapper implements LogMapper<String> {
     private String validateIp(String ip) {
         return Optional.of(ip)
                 .filter(x -> x.matches(IPV_6_PATTERN) || x.matches(IPV_4_PATTERN))
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException(ip + " is not a valid IP"));
     }
 }
 
